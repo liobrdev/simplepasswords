@@ -42,7 +42,7 @@ class EntryFormUpdate extends Component<Props, State> {
       },
       valueCopied: false,
       generatorOn: false,
-      generatorLength: 16,
+      generatorLength: Math.max(props.entry.value.length, 8),
       error: {},
     };
 
