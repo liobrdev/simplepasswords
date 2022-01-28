@@ -1,0 +1,359 @@
+.EntryFormUpdate {
+  position: relative;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+
+  .EntryFormUpdate-form {
+    z-index: 1;
+    height: 100%;
+    width: 100%;
+    margin: 0 auto;
+    max-width: 600px;
+    padding-top: 100px;
+    padding-bottom: 20px;
+    -webkit-transition: all 0.1s linear;
+        -moz-transition: all 0.1s linear;
+          -o-transition: all 0.1s linear;
+            transition: all 0.1s linear;
+
+    @include for-tablet-portrait-up {
+      padding-top: 85px;
+
+      &-titleContainer {
+        display: inline-block;
+        width: 45%;
+        height: 100%;
+        position: relative;
+        top: -102px;
+      }
+      
+      &-passwordContainer {
+        display: inline-block;
+        width: 55%;
+      }
+    }
+
+    .Input {
+      &-asterisk {
+        color: red;
+        position: absolute;
+        bottom: 18px;
+        right: 1px;
+      }
+    }
+
+    .TextArea {
+      &-asterisk {
+        color: red;
+        position: absolute;
+        top: 5px;
+        right: 1px;
+      }
+    }
+
+    &-input, &-textArea {
+      position: relative;
+      width: 75%;
+      margin-right: auto;
+      margin-left: auto;
+
+      label {
+        display: block;
+        font-weight: 700;
+        font-size: 16px;
+        font-family: $fontSecondary;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        margin-bottom: 5px;
+        color: $berry;
+
+        .EntryFormUpdate-copyValue {
+          position: absolute;
+          bottom: 25px;
+          right: 0;
+          background-color: $red;
+          box-shadow: 0 3px 8px 0 rgba(0,0,0,0.2);
+          text-transform: uppercase;
+          -webkit-transition: all 0.1s linear;
+              -moz-transition: all 0.1s linear;
+                -o-transition: all 0.1s linear;
+                  transition: all 0.1s linear;
+          border-radius: 3px;
+          text-decoration: none;
+          color: white;
+          text-align: center;
+          font-family: $fontSecondary;
+          padding: 5px 8px;
+          font-weight: 600;
+          font-size: 12px;
+          letter-spacing: 1px;
+
+          &:hover,
+          &:focus {
+            cursor: pointer;
+            background-color: $lightred;
+          }
+        }
+      }
+  
+      input, textarea {
+        width: 100%;
+        font-weight: 600;
+        font-size: 16px;
+        font-family: $fontSecondary;
+        letter-spacing: 2px;
+        outline: none;
+        background: white;
+        color: black;
+        margin-bottom: 15px;
+      }
+      
+      input {
+        border: none;
+        border-bottom: 0.5px solid $berry;
+        height: 28px;
+        padding: 3px;
+        padding-right: 10px;
+      }
+      
+      textarea {
+        padding: 5px;
+        resize: none;
+        height: 72px;
+        margin-bottom: 25px;
+        border-radius: 3px;
+        border: 0.5px dashed $berry;
+      }
+    }
+
+    &-checkbox, &-generatorLength {
+      position: relative;
+      width: 75%;
+      margin-right: auto;
+      margin-left: auto;
+      margin-bottom: 20px;
+
+      label {
+        display: inline-block;
+        font-weight: 700;
+        font-size: 16px;
+        font-family: $fontSecondary;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        margin-bottom: 5px;
+        margin-right: 15px;
+        color: $berry;
+      }
+
+      .SliderCheckbox {
+        position: relative;
+        top: 5px;
+      }
+    }
+
+    &-generatorLength {
+      input {
+        display: inline-block;
+        width: 75px;
+        outline: none;
+        border: unset;
+        border-bottom: 1px solid $purple;
+        border-radius: 3px;
+        font-size: 16px;
+        padding: 4px;
+
+        &:focus {
+          border: 2px solid $gold;
+        }
+      }
+    }
+
+    &-error {
+      width: 75%;
+      margin-top: 0;
+      margin-right: auto;
+      margin-left: auto;
+      color: white;
+    }
+
+    .CloseIcon-container {
+      z-index: 2;
+      position: absolute;
+      top: 5px;
+      right: 5px;
+    }
+
+    &-button {
+      display: block;
+      border: none;
+      outline: none;
+      min-width: 135px;
+      position: relative;
+      background-color: $berry;
+      box-shadow: 0 3px 8px 0 rgba(0,0,0,0.2);
+      text-transform: uppercase;
+      -webkit-transition: all 0.1s linear;
+          -moz-transition: all 0.1s linear;
+            -o-transition: all 0.1s linear;
+              transition: all 0.1s linear;
+      padding: 0.3em 1.2em;
+      margin-left: auto;
+      margin-right: auto;
+      border-radius: 3px;
+      text-decoration: none;
+      color: white;
+      text-align: center;
+      font-weight: 600;
+      letter-spacing: 1px;
+      font-family: $fontSecondary;
+      
+      &:hover,
+      &:focus {
+        cursor: pointer;
+        color: white;
+        background-color: $purple;
+        text-shadow: 1px 1px rgba(0,0,0,0.2);
+      }
+
+      &:disabled {
+        cursor: unset;
+        color: white;
+        background-color: $palered;
+        letter-spacing: unset;
+        font-weight: 500;
+        text-shadow: unset;
+      }
+
+      &--generator, &--undoShort, &--undoTall {
+        margin-bottom: 20px;
+      }
+
+      &--undoShort, &--undoTall {
+        margin-top: 20px;
+      }
+
+      &--undoShort, &--saveShort {
+        &:hover,
+        &:focus {
+          background-color: $lightred;
+        }
+
+        &:disabled {
+          background-color: $palered;
+        }
+
+        display: none;
+
+        @include for-tablet-portrait-up {
+          display: block;
+        }
+      }
+
+      &--saveShort {
+        &:hover,
+        &:focus {
+          background-color: $blue;
+        }
+
+        &:disabled {
+          background-color: $palered;
+        }
+      }
+
+      &--undoTall, &--saveTall {
+        &:hover,
+        &:focus {
+          background-color: $lightred;
+        }
+
+        @include for-tablet-portrait-up {
+          display: none;
+        }
+      }
+
+      &--saveTall {
+        &:hover,
+        &:focus {
+          background-color: $blue;
+        }
+
+        &:disabled {
+          background-color: $palered;
+        }
+      }
+    }
+
+    .EntryButtonDelete {
+      position: relative;
+      margin-top: 55px;
+      margin-left: auto;
+      margin-right: auto;
+      width: 75%;
+
+      &-button {
+        all: unset;
+        cursor: pointer;
+        color: $berry;
+        padding-bottom: 10px;
+        
+        &:focus {
+          outline: 1px dotted;
+        }
+        
+        &:focus,
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      &--short {
+        display: none;
+
+        @include for-tablet-portrait-up {
+          display: block;
+        }
+      }
+
+      &--tall {
+        @include for-tablet-portrait-up {
+          display: none;
+        }
+      }
+    }
+    
+    @include for-tall-window-up {
+      &-textArea {
+        height: auto;
+
+        textarea {
+          height: 100px;
+        }
+      }
+
+      @include for-tablet-portrait-up {
+        display: block;
+        width: 100%;
+
+        &-titleContainer {
+          display: block;
+          width: 100%;
+          height: auto;
+          top: unset;
+        }
+
+        &-passwordContainer {
+          display: block;
+          padding-top: 0;
+          width: 100%;
+          height: auto;
+          top: 0;
+        }
+      }
+    }
+
+    &-error {
+      color: unset;
+    }
+  }
+}

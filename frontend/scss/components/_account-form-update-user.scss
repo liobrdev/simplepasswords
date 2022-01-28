@@ -1,0 +1,332 @@
+.AccountFormUpdateUser {
+  .Input {
+    position: relative;
+    margin-top: 15px;
+    margin-bottom: 15px;
+
+    &-asterisk {
+      color: red;
+      position: absolute;
+      bottom: 14px;
+      right: 1px;
+    }
+
+    &-obelisk {
+      color: $green;
+      position: absolute;
+      font-weight: 500;
+      font-size: 14px;
+      top: -1px;
+      left: 121px;
+    }
+
+    label {
+      display: block;
+      font-weight: 500;
+      font-size: 16px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: $berry;
+    }
+
+    input {
+      width: 100%;
+      font-weight: 400;
+      font-size: 16px;
+      letter-spacing: 1px;
+      border: none;
+      outline: none;
+      height: 34px;
+      background: none;
+      border-bottom: 0.5px solid $purple;
+      color: black;
+      margin: 5px 0 10px;
+    }
+
+    &--sliderCheckbox {
+      label {
+        span {
+          color: $green;
+          position: relative;
+          font-weight: 500;
+          font-size: 14px;
+          top: -4px;
+          left: 4px;
+
+          &:nth-of-type(2) {
+            color: $berry;
+          }
+        }
+      }
+
+      .SliderCheckbox {
+        position: absolute;
+        top: 0;
+        right: 0;
+
+        input {
+          border-bottom: none;
+    
+          &:focus {
+            outline: $red dotted 1px;
+            width: calc(100% + 8px);
+            height: calc(100% + 8px);
+            top: -8px;
+            left: -4px;
+          }
+    
+          &:checked + span {
+            background-color: $berry;
+            box-shadow: 0 0 1px $berry;
+          }
+
+          &:disabled + .SliderCheckbox-slider {
+            background-color: $palered;
+            box-shadow: 0 0 1px $palered;
+          }
+        }
+      }
+    }
+  }
+
+  &-button, &-phoneNumber-button {
+    display: block;
+    border: none;
+    outline: none;
+    min-width: 135px;
+    position: relative;
+    background-color: $berry;
+    box-shadow: 0 3px 8px 0 rgba(0,0,0,0.2);
+    text-transform: uppercase;
+    -webkit-transition: all 0.1s linear;
+        -moz-transition: all 0.1s linear;
+          -o-transition: all 0.1s linear;
+            transition: all 0.1s linear;
+    padding: 8px 14px;
+    margin: 20px auto;
+    border-radius: 3px;
+    text-decoration: none;
+    color: white;
+    text-align: center;
+    font-weight: 600;
+    letter-spacing: 1px;
+    font-family: $fontSecondary;
+
+    &:hover,
+    &:focus {
+      cursor: pointer;
+      color: white;
+      background-color: $purple;
+      text-shadow: 1px 1px rgba(0,0,0,0.2);
+    }
+
+    &:disabled {
+      cursor: unset;
+      color: white;
+      background-color: $palered;
+      letter-spacing: unset;
+      font-weight: 500;
+      text-shadow: unset;
+    }
+
+    &--remove {
+      &:hover,
+      &:focus {
+        background-color: $blue;
+      }
+
+      &:disabled {
+        background-color: $palered;
+      }
+    }
+
+    &--undo {
+      background-color: $darkred;
+
+      &:hover,
+      &:focus {
+        background-color: $lightred;
+      }
+
+      &:disabled {
+        background-color: $palered;
+      }
+    }
+  }
+
+  &-phoneNumber {
+    position: relative;
+    margin-top: 15px;
+    margin-bottom: 15px;
+
+    &-label {
+      font-weight: 500;
+      font-size: 16px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: $berry;
+  
+      &-obelisk {
+        color: $green;
+        position: absolute;
+        font-weight: 500;
+        font-size: 14px;
+        top: -1px;
+        left: 121px;
+      }
+    }
+
+    &-truncated {
+      display: block;
+      font-weight: 400;
+      font-size: 17px;
+      letter-spacing: 1px;
+    }
+
+    &-button {
+      background-color: $berry;
+      margin: unset;
+      min-width: unset;
+      padding: 5px 8px;
+      display: inline-block;
+      margin-top: 10px;
+      margin-right: 12px;
+      margin-bottom: 10px;
+      margin-left: 0;
+      font-weight: 600;
+      font-size: 12px;
+      letter-spacing: 1px;
+
+      &:hover,
+      &:focus {
+        background-color: $blue;
+      }
+
+      &:disabled {
+        background-color: $palered;
+      }
+
+      &--remove {
+        &:hover,
+        &:focus {
+          background-color: $red;
+        }
+  
+        &:disabled {
+          background-color: $palered;
+        }
+      }
+
+      &--verify {
+        &:hover,
+        &:focus {
+          background-color: $purple;
+        }
+  
+        &:disabled {
+          background-color: $palered;
+        }
+
+        span {
+          position: relative;
+          top: -1px;
+          font-size: 14px;
+          font-weight: 500;
+          font-family: $fontPrimary;
+        }
+      }
+
+      &--close {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 0;
+      }
+    }
+
+    .PhoneInput {
+      input {
+        width: 100%;
+        font-weight: 400;
+        font-size: 16px;
+        letter-spacing: 1px;
+        border: none;
+        outline: none;
+        height: 34px;
+        background: none;
+        border-bottom: 0.5px solid $purple;
+        color: black;
+        margin: 5px 0 10px;
+      }
+    }
+  }
+
+  &-text {
+    &--asterisk {
+      span {
+        color: red;
+      }
+    }
+
+    &--obelisk {
+      text-align: justify;
+
+      span {
+        color: $green;
+      }
+    }
+
+    &--diesis {
+      span {
+        color: $berry;
+      }
+    }
+  }
+
+  &-verified {
+    &--email, &--phone {
+      float: right;
+      color: $palered;
+      text-transform: none;
+    }
+  }
+
+  &-verify {
+    &--email {
+      border: none;
+      outline: none;
+      position: relative;
+      background-color: $berry;
+      box-shadow: 0 3px 8px 0 rgba(0,0,0,0.2);
+      text-transform: uppercase;
+      -webkit-transition: all 0.1s linear;
+          -moz-transition: all 0.1s linear;
+            -o-transition: all 0.1s linear;
+              transition: all 0.1s linear;
+      border-radius: 3px;
+      text-decoration: none;
+      color: white;
+      text-align: center;
+      margin: 10px 0;
+      min-width: unset;
+      padding: 5px 8px;
+      display: inline-block;
+      font-family: $fontSecondary;
+      font-weight: 600;
+      font-size: 12px;
+      letter-spacing: 1px;
+
+      &:hover,
+      &:focus {
+        cursor: pointer;
+        background-color: $purple;
+        text-shadow: 1px 1px rgba(0,0,0,0.2);
+      }
+
+      &:disabled {
+        cursor: unset;
+        background-color: $palered;
+      }
+    }
+  }
+}

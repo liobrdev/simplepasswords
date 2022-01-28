@@ -1,0 +1,309 @@
+.DashboardFormCreateEntry {
+  z-index: 3;
+  position: fixed;
+  right: 25px;
+  bottom: 25px;
+  -webkit-transition: all 0.1s linear;
+     -moz-transition: all 0.1s linear;
+       -o-transition: all 0.1s linear;
+          transition: all 0.1s linear;
+
+  @include for-tablet-landscape-up {
+    right: 50px;
+    bottom: 50px;
+  }
+
+  &-overlay {
+    position: fixed;
+    background: black;
+    opacity: 0.333;
+    width: 100%;
+    height: 100%;
+  }
+
+  &.is-on {
+    z-index: 5;
+    bottom: unset;
+    right: unset;
+    top: 0;
+    left: 0;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+  
+    .DashboardFormCreateEntry-form {
+      position: absolute;
+      z-index: 1;
+      top: 0;
+      right: 0;
+      height: 100%;
+      width: 100%;
+      padding-top: 40px;
+      padding-bottom: 20px;
+      background: $berry;
+      border-radius: 4px;
+      box-shadow: 0 3px 8px 0 rgba(0,0,0,0.5);
+      -webkit-transition: all 0.1s linear;
+         -moz-transition: all 0.1s linear;
+           -o-transition: all 0.1s linear;
+              transition: all 0.1s linear;
+      overflow-y: auto;
+
+      &::-webkit-scrollbar {
+        width: 15px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background-color: transparent;
+        border-radius: 100px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        border: 5px solid transparent;
+        border-radius: 100px;
+        background-color: white;
+        background-clip: content-box;
+      }
+
+      scrollbar-color: white $berry;
+
+      .Input, .TextArea {
+        &-asterisk {
+          color: red;
+          position: absolute;
+          font-size: 20px;
+          top: 3px;
+          right: 1px;
+        }
+      }
+
+      @include for-tablet-portrait-up {
+        display: inline-flex;
+        
+        &-titleContainer {
+          display: inline-block;
+          width: 45%;
+          height: 100%;
+        }
+        
+        &-passwordContainer {
+          display: inline-block;
+          width: 55%;
+          height: 100%;
+        }
+      }
+
+      @include for-tablet-landscape-up {
+        width: 61.8%;
+      }
+
+      &-input, &-textArea {
+        position: relative;
+        width: 75%;
+        margin-right: auto;
+        margin-left: auto;
+
+        label {
+          display: block;
+          font-weight: 700;
+          font-size: 16px;
+          font-family: $fontSecondary;
+          letter-spacing: 1px;
+          text-transform: uppercase;
+          margin-bottom: 5px;
+          color: white;
+        }
+    
+        input, textarea {
+          width: 100%;
+          font-weight: 600;
+          font-size: 16px;
+          font-family: $fontSecondary;
+          padding: 5px;
+          letter-spacing: 2px;
+          border: none;
+          outline: none;
+          background: white;
+          color: black;
+          margin-bottom: 15px;
+          border-radius: 3px;
+        }
+        
+        input {
+          height: 36px;
+        }
+
+        textarea {
+          resize: none;
+          height: 72px;
+          margin-bottom: 25px;
+        }
+      }
+
+      &-checkbox, &-generatorLength {
+        position: relative;
+        width: 75%;
+        margin-right: auto;
+        margin-left: auto;
+        margin-bottom: 20px;
+
+        label {
+          display: inline-block;
+          font-weight: 700;
+          font-size: 16px;
+          font-family: $fontSecondary;
+          letter-spacing: 1px;
+          text-transform: uppercase;
+          margin-bottom: 5px;
+          margin-right: 15px;
+          color: white;
+        }
+
+        .SliderCheckbox {
+          position: relative;
+          top: 5px;
+
+          input:checked + span {
+            background-color: $red;
+            box-shadow: 0 0 1px $red;
+          }
+        }
+      }
+
+      &-generatorLength {
+        input {
+          display: inline-block;
+          width: 75px;
+          outline: none;
+          border: unset;
+          border-radius: 3px;
+          padding: 4px;
+
+          &:focus {
+            border: 2px solid $gold;
+          }
+        }
+      }
+
+      &-error {
+        width: 75%;
+        margin-top: 0;
+        margin-right: auto;
+        margin-left: auto;
+        color: white;
+      }
+
+      .CloseIcon-container {
+        z-index: 2;
+        position: absolute;
+        top: 5px;
+        right: 5px;
+      }
+
+      &-button {
+        display: block;
+        border: none;
+        outline: none;
+        min-width: 135px;
+        position: relative;
+        background-color: $red;
+        box-shadow: 0 3px 8px 0 rgba(0,0,0,0.2);
+        text-transform: uppercase;
+        -webkit-transition: all 0.1s linear;
+           -moz-transition: all 0.1s linear;
+             -o-transition: all 0.1s linear;
+                transition: all 0.1s linear;
+        padding: 0.3em 1.2em;
+        margin: 20px auto;
+        border-radius: 3px;
+        text-decoration: none;
+        color: white;
+        text-align: center;
+        font-weight: 600;
+        letter-spacing: 1px;
+        font-family: $fontSecondary;
+        
+        &:hover,
+        &:focus {
+          cursor: pointer;
+          color: white;
+          background-color: $blue;
+          text-shadow: 1px 1px rgba(0,0,0,0.2);
+        }
+  
+        &:disabled {
+          cursor: unset;
+          color: white;
+          background-color: $palered;
+          letter-spacing: unset;
+          font-weight: 500;
+          text-shadow: unset;
+        }
+
+        &--generator {
+          margin-bottom: 20px;
+
+          &:hover,
+          &:focus {
+            background-color: $purple;
+          }
+    
+          &:disabled {
+            background-color: $palered;
+          }
+        }
+
+        &--saveShort {
+          display: none;
+
+          @include for-tablet-portrait-up {
+            display: block;
+          }
+        }
+
+        &--saveTall {
+          @include for-tablet-portrait-up {
+            display: none;
+          }
+        }
+      }
+      
+      @include for-tall-window-up {
+        &-textArea {
+          height: auto;
+
+          textarea {
+            height: 100px;
+          }
+        }
+
+        @include for-tablet-portrait-up {
+          display: block;
+          width: 61.8%;
+  
+          &-titleContainer {
+            display: block;
+            width: 100%;
+            height: auto;
+          }
+  
+          &-passwordContainer {
+            display: block;
+            padding-top: 0;
+            width: 100%;
+            height: auto;
+          }
+        }
+
+        @include for-tablet-landscape-up {
+          width: 50%;
+        }
+
+        @include for-desktop-up {
+          width: 38.2%;
+        }
+      }
+    }
+  }
+}

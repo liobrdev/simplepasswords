@@ -1,0 +1,6 @@
+user-agent: *
+disallow: /api
+disallow: /account
+disallow: /dashboard
+disallow: /entry
+disallow: /verify_email

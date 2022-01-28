@@ -1,0 +1,67 @@
+.Page--account {
+  .LeftArrowIcon-container {
+    z-index: 3;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 36px;
+    height: 36px;
+  }
+
+  h3, .AccountFormUpdateUser, .AccountButtonDeleteUser {
+    position: relative;
+    margin-top: 55px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 75%;
+    max-width: 273px;
+  }
+
+  h3 {
+    z-index: 2;
+    position: relative;
+    margin-top: 80px;
+    text-transform: uppercase;
+    font-size: 23px;
+    font-weight: 300;
+    letter-spacing: 1px;
+    color: $red;
+  }
+
+  .AccountButtonDeleteUser {
+    display: block;
+
+    &-button {
+      all: unset;
+      cursor: pointer;
+      color: $berry;
+      padding-bottom: 10px;
+      
+      &:focus {
+        outline: 1px dotted;
+      }
+      
+      &:focus,
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .Footer {
+    height: 100px;
+  }
+
+  @include for-tablet-portrait-up {
+    .LeftArrowIcon-container {
+      top: 10px;
+      left: 10px;
+      width: 50px;
+      height: 50px;
+    }
+
+    h3, .AccountFormUpdateUser, .AccountButtonDeleteUser {
+      max-width: 444px;
+    }
+  }
+}

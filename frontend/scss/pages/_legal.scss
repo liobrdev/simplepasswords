@@ -1,0 +1,56 @@
+.Page--legal {
+  .LeftArrowIcon-container {
+    z-index: 3;
+    position: absolute;
+    top: 12px;
+    left: 10px;
+    width: 36px;
+    height: 36px;
+
+    .LeftArrowIcon {
+      box-shadow: unset;
+    }
+
+    &.is-hidden {
+      top: unset;
+      left: unset;
+      width: unset;
+      height: unset;
+
+      .LeftArrowIcon {
+        display: none;
+      }
+    }
+
+    @include for-tablet-portrait-up {
+      top: 10px;
+      left: 10px;
+      width: 50px;
+      height: 50px;
+    }
+  }
+
+  .LegalText {
+    position: relative;
+    width: 75%;
+    margin: 100px auto 50px;
+    font-family: $fontSecondary;
+
+    h1 {
+      color: $purple;
+      letter-spacing: 2px;
+    }
+
+    // h2 {
+
+    // }
+  }
+
+  .Footer {
+    height: 150px;
+  }
+
+  @include for-tablet-portrait-up {
+    
+  }
+}
