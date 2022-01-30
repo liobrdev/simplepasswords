@@ -59,8 +59,8 @@ class RootComponent extends Component<Props> {
             href="/favicon-16x16.png"
           />
           <link rel="manifest" href="/site.webmanifest" />
-          <meta name="msapplication-TileColor" content="#DF2E2E" />
-          <meta name="theme-color" content="#DF2E2E" />
+          <meta name="msapplication-TileColor" content="#A386D9" />
+          <meta name="theme-color" content="#A386D9" />
           <meta itemProp="name" content="SimplePasswords" />
           <meta itemProp="description" content={description} />
           <meta name="description" content={description} />
