@@ -1,6 +1,7 @@
 import { Component, MouseEvent } from 'react';
 
 import Head from 'next/head';
+import Link from 'next/link';
 import { withRouter, NextRouter } from 'next/router';
 
 import { LeftArrowIcon } from '@/components';
@@ -169,7 +170,19 @@ class Terms extends Component<Props> {
               <li>By email: contact@simplepasswords.app</li>
             </ul>
           </div>
-          <div className='Footer Footer--legal' />
+          <div className='Footer Footer--legal'>
+            <div className='FooterLinks'>
+              <span>&copy; 2022</span>
+              &nbsp;&nbsp;&bull;&nbsp;&nbsp;
+              <Link href={{ pathname: '/' }}>
+                <a className='FooterLink FooterLink--home'>Home</a>
+              </Link>
+              &nbsp;&nbsp;&bull;&nbsp;&nbsp;
+              <Link href={{ pathname: '/privacy' }}>
+                <a className='FooterLink FooterLink--privacy'>Privacy Policy</a>
+              </Link>
+            </div>
+          </div>
         </main>
       </>
     );

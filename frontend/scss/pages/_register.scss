@@ -48,15 +48,19 @@
     display: block;
     text-align: center;
     margin-top: 30px;
-
+    
     &-link {
       color: $purple;
       font-weight: 600;
       text-transform: uppercase;
     }
-  }
 
-  .Footer {
-    height: 75px;
+    &--register {
+      color: white;
+
+      .RegisterLink-link {
+        color: white;
+      }
+    }
   }
 }

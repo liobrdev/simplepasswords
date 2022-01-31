@@ -66,34 +66,6 @@
     }
   }
 
-  .Footer {
-    height: 100px;
-    display: block;
-    position: relative;
-    width: 100%;
-    bottom: 0;
-    color: $berry;
-    font-family: $fontSecondary;
-    font-size: 12px;
-    font-weight: 400;
-    letter-spacing: 1px;
-
-    .FooterLinks {
-      position: relative;
-      top: 60%;
-      text-align: center;
-
-      .FooterLink {
-        color: $berry;
-
-        &:hover,
-        &:focus {
-          text-decoration: underline;
-        }
-      }
-    }
-  }
-
   @include for-tablet-portrait-up {
     h1 {
       margin-left: 8.5%;

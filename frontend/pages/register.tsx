@@ -64,13 +64,31 @@ class Register extends Component<Props> {
           </div>
           <h2>Register</h2>
           <RegisterForm />
-          <span className='RegisterLink'>
+          <span className='RegisterLink RegisterLink--login'>
             Already have an account?&nbsp;
             <Link href='/login'>
               <a className='RegisterLink-link'>Log in</a>
             </Link>
           </span>
-          <div className='Footer Footer--register' />
+          <span className='RegisterLink RegisterLink--register'>
+            Stay on same page?&nbsp;
+            <Link href='/register'>
+              <a className='RegisterLink-link'>Sign up</a>
+            </Link>
+          </span>
+          <div className='Footer Footer--register'>
+            <div className='FooterLinks'>
+              <span>&copy; 2022</span>
+              &nbsp;&nbsp;&bull;&nbsp;&nbsp;
+              <Link href={{ pathname: '/privacy' }}>
+                <a className='FooterLink FooterLink--privacy'>Privacy Policy</a>
+              </Link>
+              &nbsp;&nbsp;&bull;&nbsp;&nbsp;
+              <Link href={{ pathname: '/terms' }}>
+                <a className='FooterLink FooterLink--terms'>Terms and Conditions</a>
+              </Link>
+            </div>
+          </div>
         </main>
       </>
     );

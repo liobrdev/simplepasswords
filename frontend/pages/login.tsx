@@ -107,7 +107,19 @@ class Login extends Component<Props, State> {
               <a className='LoginLink-link'>Log in</a>
             </Link>
           </span>
-          <div className='Footer Footer--login' />
+          <div className='Footer Footer--login'>
+            <div className='FooterLinks'>
+              <span>&copy; 2022</span>
+              &nbsp;&nbsp;&bull;&nbsp;&nbsp;
+              <Link href={{ pathname: '/privacy' }}>
+                <a className='FooterLink FooterLink--privacy'>Privacy Policy</a>
+              </Link>
+              &nbsp;&nbsp;&bull;&nbsp;&nbsp;
+              <Link href={{ pathname: '/terms' }}>
+                <a className='FooterLink FooterLink--terms'>Terms and Conditions</a>
+              </Link>
+            </div>
+          </div>
         </main>
       </>
     );

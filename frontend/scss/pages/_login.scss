@@ -63,28 +63,4 @@
       }
     }
   }
-  
-  .ForgotPassword-link {
-    display: block;
-    text-align: center;
-    margin-top: 20px;
-    
-    a {
-      color: $berry;
-      padding-bottom: 10px;
-
-      &:focus {
-        outline: 1px dotted;
-      }
-      
-      &:focus,
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-  }
-
-  .Footer {
-    height: 75px;
-  }
 }
