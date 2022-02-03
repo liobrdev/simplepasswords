@@ -7,8 +7,7 @@ from django.contrib.auth import get_user_model, login, logout
 from django.contrib.auth.signals import user_logged_in, user_logged_out
 from django.utils import timezone
 
-from knox.models import AuthToken
-from knox.settings import CONSTANTS, knox_settings
+from knox.settings import CONSTANTS
 from knox.views import LoginView, LogoutView
 
 from rest_framework import status
