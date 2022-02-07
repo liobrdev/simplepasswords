@@ -128,11 +128,10 @@ class UserSerializer(ModelSerializer):
         user = request.user
 
         user.name = self.validated_data.get('name', user.name)
-        user.tfa_is_enabled = self.validated_data.get(
-            'tfa_is_enabled', user.tfa_is_enabled,)
 
         email           = self.validated_data.get('email', None)
         phone_number    = self.validated_data.get('phone_number', None)
+        tfa_is_enabled  = self.validated_data.get('tfa_is_enabled', None)
         password        = self.validated_data.get('password', None)
         password_2      = self.validated_data.get('password_2', None)
 
@@ -143,6 +142,16 @@ class UserSerializer(ModelSerializer):
         if phone_number is not None and phone_number != user.phone_number:
             user.phone_number = phone_number
             user.phone_number_is_verified = False
+
+        if (
+            tfa_is_enabled is not None \
+            and tfa_is_enabled != user.tfa_is_enabled
+        ):
+            user.tfa_is_enabled = tfa_is_enabled
+
+            if not user.tfa_is_enabled:
+                user.tfa_tokens.all().delete()
+                user.phone_verification_tokens.all().delete()
 
         if password:
             if not password_2 or password_2 != password:
