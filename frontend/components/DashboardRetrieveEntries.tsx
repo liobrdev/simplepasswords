@@ -1,17 +1,17 @@
 import { useEffect } from 'react';
 import useSWR from 'swr';
 
-import { useAppDispatch } from '@/hooks';
+import { useAppDispatch, useAppSelector, useDebounce } from '@/hooks';
 
 import { checkListEntry, IListEntry } from '@/types';
 import { request } from '@/utils';
 
 
-const fetcher = (url: string) => {
+const fetcher = (path: string, title: string) => {
   const token = localStorage.getItem('simplepasswords_token');
 
   return request
-    .get(url)
+    .get(`${path}${title ? '?search=' + encodeURIComponent(title) : ''}`)
     .set({ 'Authorization': `Token ${token}` })
     .then(res => {
       const entries: IListEntry[] = [];
@@ -21,8 +21,19 @@ const fetcher = (url: string) => {
 }
 
 export default function DashboardRetrieveEntries() {
-  const { data, error, isValidating } = useSWR('/entries/', fetcher);
+  const {
+    searchBarOn,
+    searchTitle,
+  } = useAppSelector((state) => state.dashboard);
   const dispatch = useAppDispatch();
+
+  const debouncedSearchTitle = useDebounce(searchTitle, 250);
+
+  const {
+    data,
+    error,
+    isValidating,
+  } = useSWR(['/entries/', searchBarOn ? debouncedSearchTitle : ''], fetcher);
 
   useEffect(() => {
     if (isValidating) {

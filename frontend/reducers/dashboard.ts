@@ -9,6 +9,7 @@ export const initialDashboardState: IDashboardState = {
   formOnCreateEntry: false,
   menuOn: false,
   searchBarOn: false,
+  searchTitle: '',
   dashboardModal: undefined,
 };
 
@@ -55,6 +56,7 @@ export const dashboardReducer = (
         formOnCreateEntry: true,
         menuOn: false,
         searchBarOn: false,
+        searchTitle: '',
       };
 
     case 'DASHBOARD_FORM_CLOSE':
@@ -69,6 +71,7 @@ export const dashboardReducer = (
         formOnCreateEntry: false,
         menuOn: true,
         searchBarOn: false,
+        searchTitle: '',
       };
 
     case 'DASHBOARD_MENU_CLOSE':
@@ -89,6 +92,13 @@ export const dashboardReducer = (
       return {
         ...state,
         searchBarOn: false,
+        searchTitle: '',
+      };
+
+    case 'DASHBOARD_SEARCHBAR_INPUT':
+      return {
+        ...state,
+        searchTitle: action.searchTitle,
       };
 
     case 'DASHBOARD_SET_ENTRIES':

@@ -88,6 +88,7 @@ export interface IDashboardState {
   formOnCreateEntry: boolean;
   menuOn: boolean;
   searchBarOn: boolean;
+  searchTitle: string;
   dashboardModal?: IModal;
 }
 

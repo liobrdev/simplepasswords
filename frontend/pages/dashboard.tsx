@@ -8,6 +8,7 @@ import {
   DashboardFormCreateEntry,
   DashboardListEntries,
   DashboardNavigation,
+  DashboardSearchBar,
   LoadingView,
   Modal,
 } from '@/components';
@@ -30,6 +31,7 @@ class Dashboard extends Component<Props> {
       } else {
         this.props.dashboardFormClose();
         this.props.dashboardMenuClose();
+        this.props.dashboardSearchBarClose();
       }
     }
   }
@@ -79,6 +81,7 @@ class Dashboard extends Component<Props> {
           {!error && formOn && <DashboardFormCreateEntry />}
           <DashboardNavigation />
           <h3 className='DashboardHeading'>Dashboard</h3>
+          <DashboardSearchBar />
           <DashboardListEntries />
           {!error && !formOn && <DashboardFormCreateEntry />}
         </main>
@@ -104,6 +107,9 @@ const mapDispatchToProps = (dispatch: AppDispatch) => ({
   },
   dashboardModalClose: () => {
     dispatch({ type: 'DASHBOARD_MODAL_CLOSE' });
+  },
+  dashboardSearchBarClose: () => {
+    dispatch({ type: 'DASHBOARD_SEARCHBAR_CLOSE' });
   },
   dashboardReset: () => {
     dispatch({ type: 'DASHBOARD_RESET' });

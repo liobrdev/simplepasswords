@@ -1,0 +1,91 @@
+.DashboardSearchBar {
+  z-index: 3;
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  .SearchIcon-container {
+    position: relative;
+    top: 3px;
+    right: 9px;
+  }
+
+  &-form {
+    z-index: 4;
+    position: absolute;
+    width: 100%;
+    padding-bottom: 6px;
+    padding-top: 6px;
+    background-color: white;
+
+    & > * {
+      font-size: unset;
+      line-height: 36px;
+    }
+
+    &-input {
+      height: 38px;
+      width: calc(100% - 10px);
+      margin: 0 auto;
+
+      input {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        padding-left: 11px;
+        padding-right: 33px;
+        font-family: $fontSecondary;
+        font-size: 17px;
+        font-weight: 600;
+        letter-spacing: 1px;
+        border: none;
+        outline: none;
+        border-radius: 4px;
+        box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.1);
+      }
+    }
+
+    .CloseIcon-container {
+      position: absolute;
+      top: 8px;
+      right: 5px;
+
+      .CloseIcon {
+        &:focus,
+        &:hover {
+          background-color: $purple;
+          border-radius: 2px;
+          box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.1);
+
+          .CloseIcon-icon {
+            &::before,
+            &::after {
+              background-color: white;
+            }
+          }
+        }
+
+        &-icon {
+          &::before,
+          &::after {
+            background-color: $palered;
+          }
+        }
+      }
+    }
+  }
+
+  &.is-on {
+    z-index: 4;
+    width: 100%;
+    height: 62px;
+
+    @include for-tablet-portrait-up {
+      max-width: calc(70% - 50px);
+    }
+
+    @include for-tablet-landscape-up {
+      max-width: calc(50% - 50px);
+    }
+  }
+}

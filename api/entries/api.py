@@ -1,10 +1,10 @@
 import logging
 
 from cryptocode import decrypt
-from django.http.response import Http404, JsonResponse
+from django.http.response import Http404
 
 from rest_framework.exceptions import Throttled, ValidationError
-from rest_framework.filters import OrderingFilter
+from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.generics import (
     GenericAPIView,
     ListCreateAPIView,
@@ -25,7 +25,8 @@ logger = logging.getLogger(__name__)
 
 class ListCreateEntriesAPI(ListCreateAPIView):
     permission_classes = [IsAuthenticated]
-    filter_backends = [OrderingFilter]
+    filter_backends = [OrderingFilter, SearchFilter]
+    search_fields = ['title']
     ordering_fields = ['created_at']
     ordering = '-created_at'
 

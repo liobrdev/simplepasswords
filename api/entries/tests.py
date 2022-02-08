@@ -49,14 +49,14 @@ class BoardTest(APITestCase):
         response_create_1 = self.client.post(
             reverse('entry-list'),
             data={
-                'title': 'NewEntry@1.0.0',
+                'title': 'First Entry',
                 'value': 'value_1.0.0',
                 'password': test_user_1['password'],
             },
             format='json',)
         self.assertEqual(response_create_1.status_code, status.HTTP_201_CREATED)
         self.assertRegex(response_create_1.data['slug'], r'^[\w-]{10}$')
-        self.assertEqual(response_create_1.data['title'], 'NewEntry@1.0.0')
+        self.assertEqual(response_create_1.data['title'], 'First Entry')
         self.assertIn('created_at', response_create_1.data)
         self.assertNotIn('value', response_create_1.data)
         self.assertNotIn('password', response_create_1.data)
@@ -64,30 +64,74 @@ class BoardTest(APITestCase):
         response_create_2 = self.client.post(
             reverse('entry-list'),
             data={
-                'title': 'NewEntry@2.0.0',
+                'title': 'Second Entry',
                 'value': 'value_2.0.0',
                 'password': test_user_1['password'],
             },
             format='json',)
         self.assertEqual(response_create_2.status_code, status.HTTP_201_CREATED)
         self.assertRegex(response_create_2.data['slug'], r'^[\w-]{10}$')
-        self.assertEqual(response_create_2.data['title'], 'NewEntry@2.0.0')
+        self.assertEqual(response_create_2.data['title'], 'Second Entry')
         self.assertIn('created_at', response_create_2.data)
         self.assertNotIn('value', response_create_2.data)
         self.assertNotIn('password', response_create_2.data)
 
-        response_list = self.client.get(reverse('entry-list'), format='json')
-        self.assertEqual(response_list.status_code, status.HTTP_200_OK)
-        self.assertEqual(response_list.data[0]['slug'], response_create_2.data['slug'])
-        self.assertEqual(response_list.data[1]['slug'], response_create_1.data['slug'])
-        self.assertEqual(response_list.data[0]['title'], response_create_2.data['title'])
-        self.assertEqual(response_list.data[1]['title'], response_create_1.data['title'])
-        self.assertEqual(response_list.data[0]['created_at'], response_create_2.data['created_at'])
-        self.assertEqual(response_list.data[1]['created_at'], response_create_1.data['created_at'])
-        self.assertNotIn('value', response_list.data[0])
-        self.assertNotIn('password', response_list.data[0])
-        self.assertNotIn('value', response_list.data[1])
-        self.assertNotIn('password', response_list.data[1])
+        response_list_1 = self.client.get(reverse('entry-list'), format='json')
+        self.assertEqual(response_list_1.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response_list_1.data), 2)
+        self.assertEqual(response_list_1.data[0]['slug'], response_create_2.data['slug'])
+        self.assertEqual(response_list_1.data[1]['slug'], response_create_1.data['slug'])
+        self.assertEqual(response_list_1.data[0]['title'], response_create_2.data['title'])
+        self.assertEqual(response_list_1.data[1]['title'], response_create_1.data['title'])
+        self.assertEqual(response_list_1.data[0]['created_at'], response_create_2.data['created_at'])
+        self.assertEqual(response_list_1.data[1]['created_at'], response_create_1.data['created_at'])
+        self.assertNotIn('value', response_list_1.data[0])
+        self.assertNotIn('password', response_list_1.data[0])
+        self.assertNotIn('value', response_list_1.data[1])
+        self.assertNotIn('password', response_list_1.data[1])
+
+        # Filter by ?search=s
+        response_list_2 = self.client.get('/api/entries/?search=s', format='json')
+        self.assertEqual(len(response_list_2.data), 2)
+        self.assertEqual(response_list_2.status_code, status.HTTP_200_OK)
+        self.assertEqual(response_list_2.data[0]['slug'], response_create_2.data['slug'])
+        self.assertEqual(response_list_2.data[1]['slug'], response_create_1.data['slug'])
+        self.assertEqual(response_list_2.data[0]['title'], response_create_2.data['title'])
+        self.assertEqual(response_list_2.data[1]['title'], response_create_1.data['title'])
+        self.assertEqual(response_list_2.data[0]['created_at'], response_create_2.data['created_at'])
+        self.assertEqual(response_list_2.data[1]['created_at'], response_create_1.data['created_at'])
+
+        # Filter by ?search=se
+        response_list_3 = self.client.get('/api/entries/?search=se', format='json')
+        self.assertEqual(len(response_list_3.data), 1)
+        self.assertEqual(response_list_3.status_code, status.HTTP_200_OK)
+        self.assertEqual(response_list_3.data[0]['slug'], response_create_2.data['slug'])
+        self.assertEqual(response_list_3.data[0]['title'], response_create_2.data['title'])
+        self.assertEqual(response_list_3.data[0]['created_at'], response_create_2.data['created_at'])
+
+        # Filter by ?search=f
+        response_list_4 = self.client.get('/api/entries/?search=f', format='json')
+        self.assertEqual(len(response_list_4.data), 1)
+        self.assertEqual(response_list_4.status_code, status.HTTP_200_OK)
+        self.assertEqual(response_list_4.data[0]['slug'], response_create_1.data['slug'])
+        self.assertEqual(response_list_4.data[0]['title'], response_create_1.data['title'])
+        self.assertEqual(response_list_4.data[0]['created_at'], response_create_1.data['created_at'])
+
+        # Filter by ?search=
+        response_list_5 = self.client.get('/api/entries/?search=', format='json')
+        self.assertEqual(len(response_list_5.data), 2)
+        self.assertEqual(response_list_5.status_code, status.HTTP_200_OK)
+        self.assertEqual(response_list_5.data[0]['slug'], response_create_2.data['slug'])
+        self.assertEqual(response_list_5.data[1]['slug'], response_create_1.data['slug'])
+        self.assertEqual(response_list_5.data[0]['title'], response_create_2.data['title'])
+        self.assertEqual(response_list_5.data[1]['title'], response_create_1.data['title'])
+        self.assertEqual(response_list_5.data[0]['created_at'], response_create_2.data['created_at'])
+        self.assertEqual(response_list_5.data[1]['created_at'], response_create_1.data['created_at'])
+
+        # Filter by ?search=third
+        response_list_6 = self.client.get('/api/entries/?search=third', format='json')
+        self.assertListEqual(response_list_6.data, [])
+        self.assertEqual(response_list_6.status_code, status.HTTP_200_OK)
         self.assertEqual(StatusLog.objects.using('logger').count(), 0)
 
     def test_retrieve_entry(self):

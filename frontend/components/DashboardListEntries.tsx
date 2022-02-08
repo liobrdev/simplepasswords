@@ -30,13 +30,15 @@ class DashboardListEntries extends Component<Props> {
   }
 
   render() {
-    const { entries, errorRetrieve, isRetrieving } = this.props;
+    const { entries, errorRetrieve, isRetrieving, searchBarOn } = this.props;
     const hasEntries = !!entries?.length && Array.isArray(entries);
 
     return (
       <div className={`DashboardListEntries${!hasEntries ? ' is-empty' : ''}`}>
         <DashboardRetrieveEntries />
-        {isRetrieving ? <LoadingView className='LoadingView--dashboard' /> : (
+        {isRetrieving && !searchBarOn ? (
+          <LoadingView className='LoadingView--dashboard' />
+        ) : (
           <>
             {!errorRetrieve && hasEntries && (
               <ul className='DashboardListEntries-list'>
@@ -77,6 +79,7 @@ const mapStateToProps = (state: AppState) => ({
   entries: state.dashboard.entries,
   errorRetrieve: state.dashboard.errorRetrieve,
   isRetrieving: state.dashboard.isRetrieving,
+  searchBarOn: state.dashboard.searchBarOn,
 });
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
