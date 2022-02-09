@@ -4,6 +4,7 @@
   width: 80%;
   height: 100%;
   margin: 0 auto;
+  max-width: 275px;
   -webkit-transition: all 0.1s linear;
      -moz-transition: all 0.1s linear;
        -o-transition: all 0.1s linear;
@@ -106,5 +107,9 @@
         }
       }
     }
+  }
+
+  @include for-medium-window-up {
+    max-width: 350px;
   }
 }
