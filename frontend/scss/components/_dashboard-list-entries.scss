@@ -33,10 +33,6 @@
       }
     }
 
-    @include for-short-window-only {
-      width: 70%;
-    }
-
     @include for-tablet-portrait-up {
       width: 80%;
     }
