@@ -32,7 +32,7 @@ then
   mkdir $HOST_BACKUPS_DIR
 fi
 
-docker-compose exec $DB_SERVICE bash -c \
+docker-compose exec -T $DB_SERVICE bash -c \
   "pg_dump --inserts --column-inserts --username=$DB_USER $DB_NAME > \
     $CONTAINER_BACKUPS_DIR/$DB_NAME-$(TZ=EST date +%F-%Hh%Mm%Ss%Z).sql"
 
