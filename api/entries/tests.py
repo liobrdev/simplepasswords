@@ -9,7 +9,7 @@ from entries.models import Entry
 from utils.testing import create_user, test_user_1
 
 
-class BoardTest(APITestCase):
+class EntryTest(APITestCase):
     databases = '__all__'
 
     def setUp(self):
