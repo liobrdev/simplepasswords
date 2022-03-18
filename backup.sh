@@ -2,6 +2,9 @@
 
 set -o pipefail -e
 
+HOME=/home/ubuntu
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
 if ! docker info > /dev/null 2>&1
 then
   systemctl restart docker
@@ -35,5 +38,8 @@ docker-compose exec $DB_SERVICE bash -c \
 
 LATEST_BACKUP=`ls $HOST_BACKUPS_DIR -At | head -n 1`
 
-aws s3 mv $HOST_BACKUPS_DIR/$LATEST_BACKUP \
-  s3://$PROJECT_NAME/$DB_SERVICE/backups/
+if aws s3 mv $HOST_BACKUPS_DIR/$LATEST_BACKUP \
+  s3://$PROJECT_NAME/$DB_SERVICE/backups/ > /dev/null
+then
+  echo "Successful backup."
+fi
