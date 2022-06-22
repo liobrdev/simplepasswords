@@ -27,8 +27,16 @@ export default function DashboardSearchBar() {
     dispatch({ type: 'DASHBOARD_SEARCHBAR_INPUT', searchTitle });
   };
 
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
+
   const searchBar = (
-    <form className='DashboardSearchBar-form' id='formSearchBar'>
+    <form
+      className='DashboardSearchBar-form'
+      id='formSearchBar'
+      onSubmit={handleSubmit}
+    >
       <Input
         className='DashboardSearchBar-form-input'
         name='title'
