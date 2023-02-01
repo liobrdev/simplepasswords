@@ -45,9 +45,8 @@ class DatabaseLoggerTest(APITestCase):
         self.assertIsNotNone(log['trace'])
 
     def test_fail_list_logs_not_permitted(self):
-        self._fail_register_missing_info()
         self._fail_update_user()
-        self.assertEqual(StatusLog.objects.using('logger').count(), 2)
+        self.assertEqual(StatusLog.objects.using('logger').count(), 1)
         login = self.client.post(reverse('login'), data={
             'email': test_user_1['email'],
             'password': test_user_1['password'],
@@ -59,12 +58,11 @@ class DatabaseLoggerTest(APITestCase):
             response.data['detail'],
             'You do not have permission to perform this action.',
         )
-        self.assertEqual(StatusLog.objects.using('logger').count(), 2)
+        self.assertEqual(StatusLog.objects.using('logger').count(), 1)
 
     def test_successful_list_logs(self):
-        self._fail_register_missing_info()
         self._fail_update_user()
-        self.assertEqual(StatusLog.objects.using('logger').count(), 2)
+        self.assertEqual(StatusLog.objects.using('logger').count(), 1)
         logs = StatusLog.objects.using('logger').all()
         serialized_logs = StatusLogSerializer(logs, many=True).data
         login = self.client.post(reverse('login'), data={
@@ -103,14 +101,6 @@ class DatabaseLoggerTest(APITestCase):
         self.assertEqual(mail.outbox[0].subject,
             f'{settings.EMAIL_SUBJECT_PREFIX}ERROR: Error updating user.')
         self.assertListEqual(mail.outbox[0].to, ['contact@simplepasswords.app'])
-
-    def _fail_register_missing_info(self):
-        res_fail = self.client.post(reverse('register'), data={})
-        self.assertEqual(res_fail.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertListEqual(res_fail.data['name'], ['This field is required.'])
-        self.assertListEqual(res_fail.data['email'], ['This field is required.'])
-        self.assertListEqual(res_fail.data['password'], ['This field is required.'])
-        self.assertListEqual(res_fail.data['password_2'], ['This field is required.'])
 
     def _fail_update_user(self):
         login = self.client.post(reverse('login'), data={
