@@ -9,13 +9,11 @@ from knox import crypto
 class ResetPasswordLongTokenManager(Manager):
     def create(self, email, expiry):
         token  = crypto.create_token_string()
-        salt   = crypto.create_salt_string()
-        digest = crypto.hash_token(token, salt)
+        digest = crypto.hash_token(token)
         expiry = timezone.now() + expiry
 
         instance = super(ResetPasswordLongTokenManager, self).create(
             email=email,
-            salt=salt,
             digest=digest,
             expiry=expiry,
         )
@@ -26,13 +24,11 @@ class ResetPasswordLongTokenManager(Manager):
 class ResetPasswordShortTokenManager(Manager):
     def create(self, email, expiry):
         token  = str(int.from_bytes(os.urandom(32), byteorder='big'))[:6]
-        salt   = crypto.create_salt_string()
-        digest = crypto.hash_token(token, salt)
+        digest = crypto.hash_token(token)
         expiry = timezone.now() + expiry
 
         instance = super(ResetPasswordShortTokenManager, self).create(
             email=email,
-            salt=salt,
             digest=digest,
             expiry=expiry,
         )

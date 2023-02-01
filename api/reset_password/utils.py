@@ -87,7 +87,7 @@ def check_reset_password_token(command, email, token_string):
             token.delete()
             continue
         try:
-            digest = hash_token(token_string, token.salt)
+            digest = hash_token(token_string)
         except (TypeError, binascii.Error):
             continue
         if compare_digest(digest, token.digest):

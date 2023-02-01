@@ -9,7 +9,6 @@ from utils.models import CustomBaseMixin
 
 class ResetPasswordEmailToken(CustomBaseMixin):
     email   = EmailField(blank=False, null=False, editable=False)
-    salt    = CharField(max_length=CONSTANTS.SALT_LENGTH, unique=True)
     digest  = CharField(max_length=CONSTANTS.DIGEST_LENGTH, primary_key=True)
     expiry  = DateTimeField(null=True, blank=True)
 
@@ -21,7 +20,6 @@ class ResetPasswordEmailToken(CustomBaseMixin):
 
 class ResetPasswordPhoneToken(CustomBaseMixin):
     email   = EmailField(blank=False, null=False, editable=False)
-    salt    = CharField(max_length=CONSTANTS.SALT_LENGTH, unique=True)
     digest  = CharField(max_length=CONSTANTS.DIGEST_LENGTH, primary_key=True)
     expiry  = DateTimeField(null=True, blank=True)
 
@@ -33,7 +31,6 @@ class ResetPasswordPhoneToken(CustomBaseMixin):
 
 class ResetPasswordSubmitToken(CustomBaseMixin):
     email   = EmailField(blank=False, null=False, editable=False)
-    salt    = CharField(max_length=CONSTANTS.SALT_LENGTH, unique=True)
     digest  = CharField(max_length=CONSTANTS.DIGEST_LENGTH, primary_key=True)
     expiry  = DateTimeField(null=True, blank=True)
 

@@ -16,7 +16,6 @@ class EmailVerificationToken(CustomBaseMixin):
         related_name='email_verification_tokens',
         editable=False,)
     token_key = CharField(max_length=CONSTANTS.TOKEN_KEY_LENGTH, db_index=True)
-    salt      = CharField(max_length=CONSTANTS.SALT_LENGTH, unique=True)
     digest    = CharField(max_length=CONSTANTS.DIGEST_LENGTH, primary_key=True)
     expiry    = DateTimeField(null=True, blank=True)
 
@@ -32,7 +31,6 @@ class PhoneVerificationToken(CustomBaseMixin):
         on_delete=PROTECT,
         related_name='phone_verification_tokens',
         editable=False,)
-    salt   = CharField(max_length=CONSTANTS.SALT_LENGTH, unique=True)
     digest = CharField(max_length=CONSTANTS.DIGEST_LENGTH, primary_key=True)
     expiry = DateTimeField(null=True, blank=True)
 
@@ -48,7 +46,6 @@ class TwoFactorAuthToken(CustomBaseMixin):
         on_delete=PROTECT,
         related_name='tfa_tokens',
         editable=False,)
-    salt   = CharField(max_length=CONSTANTS.SALT_LENGTH, unique=True)
     digest = CharField(max_length=CONSTANTS.DIGEST_LENGTH, primary_key=True)
     expiry = DateTimeField(null=True, blank=True)
 
