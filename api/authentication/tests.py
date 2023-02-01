@@ -29,124 +29,136 @@ class AuthenticationTest(APITestCase):
     def tearDown(self):
         get_redis_connection('default').flushall()
 
-    def test_register_fail_missing_info(self):
-        res_fail = self.client.post(reverse('register'), data={})
-        self.assertEqual(res_fail.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertListEqual(res_fail.data['name'], ['This field is required.'])
-        self.assertListEqual(res_fail.data['email'], ['This field is required.'])
-        self.assertListEqual(res_fail.data['password'], ['This field is required.'])
-        self.assertListEqual(res_fail.data['password_2'], ['This field is required.'])
-        log = StatusLog.objects.using('logger').latest('created_at')
-        self.assertRegex(log.msg, log_msg_regex('Missing register data.', LogLevels.ERROR))
-        self.assertEqual(log.command, AuthCommands.REGISTER)
-        self.assertEqual(len(mail.outbox), 1)
-        self.assertEqual(mail.outbox[0].subject,
-            f'{settings.EMAIL_SUBJECT_PREFIX}ERROR: Missing register data.')
-        self.assertListEqual(mail.outbox[0].to, ['contact@simplepasswords.app'])
-        self.assertEqual(StatusLog.objects.using('logger').count(), 1)
+    # def test_register_fail_missing_info(self):
+    #     res_fail = self.client.post(reverse('register'), data={})
+    #     self.assertEqual(res_fail.status_code, status.HTTP_400_BAD_REQUEST)
+    #     self.assertListEqual(res_fail.data['name'], ['This field is required.'])
+    #     self.assertListEqual(res_fail.data['email'], ['This field is required.'])
+    #     self.assertListEqual(res_fail.data['password'], ['This field is required.'])
+    #     self.assertListEqual(res_fail.data['password_2'], ['This field is required.'])
+    #     log = StatusLog.objects.using('logger').latest('created_at')
+    #     self.assertRegex(log.msg, log_msg_regex('Missing register data.', LogLevels.ERROR))
+    #     self.assertEqual(log.command, AuthCommands.REGISTER)
+    #     self.assertEqual(len(mail.outbox), 1)
+    #     self.assertEqual(mail.outbox[0].subject,
+    #         f'{settings.EMAIL_SUBJECT_PREFIX}ERROR: Missing register data.')
+    #     self.assertListEqual(mail.outbox[0].to, ['contact@simplepasswords.app'])
+    #     self.assertEqual(StatusLog.objects.using('logger').count(), 1)
 
-    def test_register_fail_empty_info(self):
-        res_fail = self.client.post(reverse('register'), data={
-            'email': '',
-            'name': '',
-            'password': '',
-            'password_2': '',
-        })
-        self.assertEqual(res_fail.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertListEqual(res_fail.data['name'], ['This field may not be blank.'])
-        self.assertListEqual(res_fail.data['email'], ['This field may not be blank.'])
-        self.assertListEqual(res_fail.data['password'], ['This field may not be blank.'])
-        self.assertListEqual(res_fail.data['password_2'], ['This field may not be blank.'])
-        log = StatusLog.objects.using('logger').latest('created_at')
-        self.assertRegex(log.msg, log_msg_regex('Missing register data.', LogLevels.ERROR))
-        self.assertEqual(log.command, AuthCommands.REGISTER)
-        self.assertEqual(len(mail.outbox), 1)
-        self.assertEqual(mail.outbox[0].subject,
-            f'{settings.EMAIL_SUBJECT_PREFIX}ERROR: Missing register data.')
-        self.assertListEqual(mail.outbox[0].to, ['contact@simplepasswords.app'])
-        self.assertEqual(StatusLog.objects.using('logger').count(), 1)
+    # def test_register_fail_empty_info(self):
+    #     res_fail = self.client.post(reverse('register'), data={
+    #         'email': '',
+    #         'name': '',
+    #         'password': '',
+    #         'password_2': '',
+    #     })
+    #     self.assertEqual(res_fail.status_code, status.HTTP_400_BAD_REQUEST)
+    #     self.assertListEqual(res_fail.data['name'], ['This field may not be blank.'])
+    #     self.assertListEqual(res_fail.data['email'], ['This field may not be blank.'])
+    #     self.assertListEqual(res_fail.data['password'], ['This field may not be blank.'])
+    #     self.assertListEqual(res_fail.data['password_2'], ['This field may not be blank.'])
+    #     log = StatusLog.objects.using('logger').latest('created_at')
+    #     self.assertRegex(log.msg, log_msg_regex('Missing register data.', LogLevels.ERROR))
+    #     self.assertEqual(log.command, AuthCommands.REGISTER)
+    #     self.assertEqual(len(mail.outbox), 1)
+    #     self.assertEqual(mail.outbox[0].subject,
+    #         f'{settings.EMAIL_SUBJECT_PREFIX}ERROR: Missing register data.')
+    #     self.assertListEqual(mail.outbox[0].to, ['contact@simplepasswords.app'])
+    #     self.assertEqual(StatusLog.objects.using('logger').count(), 1)
 
-    def test_register_fail_invalid_info(self):
-        res_fail = self.client.post(reverse('register'), data={
-            'email': 'bademail.com',
-            'name': 'Bad name #$',
+    # def test_register_fail_invalid_info(self):
+    #     res_fail = self.client.post(reverse('register'), data={
+    #         'email': 'bademail.com',
+    #         'name': 'Bad name #$',
+    #         'password': test_user_1['password'],
+    #         'password_2': test_user_1['password'],
+    #     })
+    #     self.assertEqual(res_fail.status_code, status.HTTP_400_BAD_REQUEST)
+    #     self.assertListEqual(res_fail.data['name'], ['Please enter a valid name.'])
+    #     self.assertListEqual(res_fail.data['email'], ['Please enter a valid email address.'])
+    #     self.assertEqual(StatusLog.objects.using('logger').count(), 0)
+
+    # def test_register_fail_invalid_password(self):
+    #     res_1 = self.client.post(reverse('register'), data={
+    #         'email': test_user_1['email'],
+    #         'name': test_user_1['name'],
+    #         'password': '898980',
+    #         'password_2': '898980',
+    #     })
+    #     self.assertEqual(res_1.status_code, status.HTTP_400_BAD_REQUEST)
+    #     self.assertListEqual(res_1.data['non_field_errors'], [
+    #         'This password is too short. It must contain at least 8 characters.',
+    #         'This password is entirely numeric.',
+    #     ])
+    #     res_2 = self.client.post(reverse('register'), data={
+    #         'email': test_user_1['email'],
+    #         'name': test_user_1['name'],
+    #         'password': test_user_1['email'],
+    #         'password_2': test_user_1['email'],
+    #     })
+    #     self.assertEqual(res_2.status_code, status.HTTP_400_BAD_REQUEST)
+    #     self.assertListEqual(res_2.data['non_field_errors'], [
+    #         'The password is too similar to the email address.',
+    #     ])
+    #     res_3 = self.client.post(reverse('register'), data={
+    #         'email': test_user_1['email'],
+    #         'name': test_user_1['name'],
+    #         'password': 'asdfqwer',
+    #         'password_2': 'asdfqwer',
+    #     })
+    #     self.assertEqual(res_3.status_code, status.HTTP_400_BAD_REQUEST)
+    #     self.assertListEqual(res_3.data['non_field_errors'], ['This password is too common.'])
+    #     res_4 = self.client.post(reverse('register'), data={
+    #         'email': test_user_1['email'],
+    #         'name': test_user_1['name'],
+    #         'password': test_user_1['password'],
+    #         'password_2': 'asdfqwer',
+    #     })
+    #     self.assertEqual(res_4.status_code, status.HTTP_400_BAD_REQUEST)
+    #     self.assertListEqual(res_4.data['non_field_errors'], ['Passwords do not match.'])
+    #     self.assertEqual(StatusLog.objects.using('logger').count(), 0)
+
+    # def test_successful_user_register(self):
+    #     response = self.client.post(reverse('register'), data={
+    #         'email': test_user_1['email'],
+    #         'name': test_user_1['name'],
+    #         'password': test_user_1['password'],
+    #         'password_2': test_user_1['password'],
+    #     })
+    #     user = get_user_model().objects.last()
+    #     self.assertEqual(response.status_code, status.HTTP_200_OK)
+    #     self.assertEqual(response.data['user']['user_slug'], user.user_slug)
+    #     self.assertEqual(response.data['user']['email'], user.email)
+    #     self.assertEqual(response.data['user']['name'], user.name)
+    #     self.assertFalse(response.data['user']['email_is_verified'])
+    #     self.assertFalse(response.data['user']['phone_number_is_verified'])
+    #     self.assertEqual(response.data['user']['truncated_phone_number'], '')
+    #     self.assertFalse(response.data['user']['tfa_is_enabled'])
+    #     self.assertRegex(response.data['token'], r'^[\w-]{64}$')
+    #     self.assertEqual(StatusLog.objects.using('logger').count(), 0)
+
+    # def test_resigter_fail_already_exists(self):
+    #     user = get_user_model().objects.create_user(**test_user_1)
+    #     res_fail = self.client.post(reverse('register'), data={
+    #         'email': user.email,
+    #         'name': user.name,
+    #         'password': user.password,
+    #         'password_2': user.password,
+    #     })
+    #     self.assertEqual(res_fail.status_code, status.HTTP_403_FORBIDDEN)
+    #     self.assertEqual(res_fail.data['detail'], 'Cannot create account with this email.')
+    #     self.assertEqual(StatusLog.objects.using('logger').count(), 0)
+
+    def test_user_register_not_found(self):
+        response = self.client.post('/api/auth/register', data={
+            'email': test_user_1['email'],
+            'name': test_user_1['name'],
             'password': test_user_1['password'],
             'password_2': test_user_1['password'],
         })
-        self.assertEqual(res_fail.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertListEqual(res_fail.data['name'], ['Please enter a valid name.'])
-        self.assertListEqual(res_fail.data['email'], ['Please enter a valid email address.'])
-        self.assertEqual(StatusLog.objects.using('logger').count(), 0)
-
-    def test_register_fail_invalid_password(self):
-        res_1 = self.client.post(reverse('register'), data={
-            'email': test_user_1['email'],
-            'name': test_user_1['name'],
-            'password': '898980',
-            'password_2': '898980',
-        })
-        self.assertEqual(res_1.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertListEqual(res_1.data['non_field_errors'], [
-            'This password is too short. It must contain at least 8 characters.',
-            'This password is entirely numeric.',
-        ])
-        res_2 = self.client.post(reverse('register'), data={
-            'email': test_user_1['email'],
-            'name': test_user_1['name'],
-            'password': test_user_1['email'],
-            'password_2': test_user_1['email'],
-        })
-        self.assertEqual(res_2.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertListEqual(res_2.data['non_field_errors'], [
-            'The password is too similar to the email address.',
-        ])
-        res_3 = self.client.post(reverse('register'), data={
-            'email': test_user_1['email'],
-            'name': test_user_1['name'],
-            'password': 'asdfqwer',
-            'password_2': 'asdfqwer',
-        })
-        self.assertEqual(res_3.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertListEqual(res_3.data['non_field_errors'], ['This password is too common.'])
-        res_4 = self.client.post(reverse('register'), data={
-            'email': test_user_1['email'],
-            'name': test_user_1['name'],
-            'password': test_user_1['password'],
-            'password_2': 'asdfqwer',
-        })
-        self.assertEqual(res_4.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertListEqual(res_4.data['non_field_errors'], ['Passwords do not match.'])
-        self.assertEqual(StatusLog.objects.using('logger').count(), 0)
-
-    def test_successful_user_register(self):
-        response = self.client.post(reverse('register'), data={
-            'email': test_user_1['email'],
-            'name': test_user_1['name'],
-            'password': test_user_1['password'],
-            'password_2': test_user_1['password'],
-        })
-        user = get_user_model().objects.last()
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['user']['user_slug'], user.user_slug)
-        self.assertEqual(response.data['user']['email'], user.email)
-        self.assertEqual(response.data['user']['name'], user.name)
-        self.assertFalse(response.data['user']['email_is_verified'])
-        self.assertFalse(response.data['user']['phone_number_is_verified'])
-        self.assertEqual(response.data['user']['truncated_phone_number'], '')
-        self.assertFalse(response.data['user']['tfa_is_enabled'])
-        self.assertRegex(response.data['token'], r'^[\w-]{64}$')
-        self.assertEqual(StatusLog.objects.using('logger').count(), 0)
-
-    def test_resigter_fail_already_exists(self):
-        user = get_user_model().objects.create_user(**test_user_1)
-        res_fail = self.client.post(reverse('register'), data={
-            'email': user.email,
-            'name': user.name,
-            'password': user.password,
-            'password_2': user.password,
-        })
-        self.assertEqual(res_fail.status_code, status.HTTP_403_FORBIDDEN)
-        self.assertEqual(res_fail.data['detail'], 'Cannot create account with this email.')
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEqual(response.data['detail'], 'Not found.')
+        self.assertEqual(get_user_model().objects.count(), 0)
         self.assertEqual(StatusLog.objects.using('logger').count(), 0)
 
     def test_login_fail_missing_info(self):
