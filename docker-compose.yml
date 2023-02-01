@@ -68,7 +68,7 @@ services:
       NEXT_TELEMETRY_DISABLED: 1
       NODE_ENV: production
   db_default:
-    image: postgres
+    image: postgres:14
     secrets:
       - db_default_name
       - db_default_user
@@ -82,7 +82,7 @@ services:
     volumes:
       - ./db_default/var/lib/postgresql/data:/var/lib/postgresql/data:rw
   db_logger:
-    image: postgres
+    image: postgres:14
     secrets:
       - db_logger_name
       - db_logger_user
