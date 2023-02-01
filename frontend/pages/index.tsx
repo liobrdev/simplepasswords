@@ -51,9 +51,6 @@ class Home extends Component<Props> {
             manage your passwords from anywhere.
           </h2>
           <div className='HomeLinks'>
-            <Link href={{ pathname: '/register' }}>
-              <a className='HomeLink HomeLink--register'>Sign up</a>
-            </Link>
             <Link href={{ pathname: '/login' }}>
               <a className='HomeLink HomeLink--login'>Log in</a>
             </Link>

@@ -95,12 +95,6 @@ class Login extends Component<Props, State> {
             />
           </div>
           <LoginForm />
-          <span className='LoginLink LoginLink--register'>
-            Don&apos;t have an account?&nbsp;
-            <Link href='/register'>
-              <a className='LoginLink-link'>Sign up</a>
-            </Link>
-          </span>
           <span className='LoginLink LoginLink--login'>
             Stay on same page?&nbsp;
             <Link href='/login'>
